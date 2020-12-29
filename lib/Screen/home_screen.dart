@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../Controller/action_controller.dart';
 
@@ -30,33 +31,50 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.symmetric(horizontal: 10.0),
-        child: Stack(
-          children: <Widget>[
-            Image.asset('assets/wheel.png'),
-            RotationTransition(
-              turns:
-                  Tween(begin: _animBegin, end: _animEnd).animate(_animation),
-              child: GestureDetector(
-                onTap: () {
-                  _animationController.forward();
-                  if (_animationController.status ==
-                      AnimationStatus.completed) {
-                    setState(() {
-                      _animBegin = _animEnd - _animEnd.truncate();
-                      _animEnd = _controller.getRandomPosition();
-                    });
-                    _animationController.reset();
-                    _animationController.forward();
-                  }
-                },
-                child: Image.asset('assets/arrow.png'),
-              ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            'Circle Action',
+            style: GoogleFonts.bangers(fontSize: 70.0),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          Text(
+            'Lancer la roue pour obtenir un defi !',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.bangers(fontSize: 40.0),
+          ),
+          Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.symmetric(horizontal: 10.0),
+            child: Stack(
+              children: <Widget>[
+                Image.asset('assets/wheel.png'),
+                RotationTransition(
+                  turns: Tween(begin: _animBegin, end: _animEnd)
+                      .animate(_animation),
+                  child: GestureDetector(
+                    onTap: () {
+                      _animationController.forward();
+                      if (_animationController.status ==
+                          AnimationStatus.completed) {
+                        setState(() {
+                          _animBegin = _animEnd - _animEnd.truncate();
+                          _animEnd = _controller.getRandomPosition();
+                        });
+                        _animationController.reset();
+                        _animationController.forward();
+                      }
+                    },
+                    child: Image.asset('assets/arrow.png'),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
