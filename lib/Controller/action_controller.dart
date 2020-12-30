@@ -1,6 +1,29 @@
 import 'dart:math';
 
+import 'package:circle_action/Model/action_model.dart';
+
 class ActionController {
+  int colorChoise = 0;
+
+  List<ActionModel> _actionList = [
+    ActionModel(
+        description: 'Parler sans utiliser une lettre définie par les autres',
+        colorID: 0),
+    ActionModel(description: 'Répéter ses paroles en double', colorID: 1),
+    ActionModel(description: 'Danser sur une chanson imposée', colorID: 2),
+    ActionModel(
+        description: 'Faire un discours élogieux sur l’amitié', colorID: 3),
+    ActionModel(description: 'Se déplacer en moonwalk', colorID: 4),
+    ActionModel(description: 'Faire une série de pompe', colorID: 5),
+    ActionModel(
+        description: 'Devenir le Marjordome de tout le monde', colorID: 6),
+    ActionModel(description: "Imiter le cris d'un animal", colorID: 7),
+  ];
+
+  ActionModel getAction() {
+    return _actionList[colorChoise];
+  }
+
   String _decodeColor(int colorNumber) {
     switch (colorNumber) {
       case 0:
@@ -36,7 +59,7 @@ class ActionController {
   getRandomPosition() {
     int minTurns = 6;
     int maxTurns = 10;
-    int colorChoise = Random().nextInt(8);
+    colorChoise = Random().nextInt(8);
     double colorAlgo = (1.0 / 8.0) * colorChoise;
     double position =
         (Random().nextInt(maxTurns - minTurns) + minTurns) + colorAlgo;

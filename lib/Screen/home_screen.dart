@@ -1,3 +1,4 @@
+import 'package:circle_action/Model/action_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -26,6 +27,45 @@ class _HomeScreenState extends State<HomeScreen>
     _animBegin = 0.0;
     _animEnd = _controller.getRandomPosition();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    //identique à un initState mais avec le context se lance apres le initState ou apres des changements de dépendance
+    _animationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        ActionModel _action = _controller.getAction();
+        showDialog(
+            context: context,
+            builder: (context) {
+              return SimpleDialog(
+                contentPadding: EdgeInsets.all(20.0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0)),
+                title: Center(
+                    child: Text(
+                  'Action !',
+                  style: GoogleFonts.bangers(fontSize: 40.0),
+                )),
+                children: [
+                  Text(
+                    _action.description,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.indieFlower(fontSize: 30.0),
+                  ),
+                ],
+              );
+            });
+      }
+    });
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    _animationController
+        .dispose(); //permet d'arreter l'annimation si on arrete l'app (évite les perte de mémoire)
+    super.dispose();
   }
 
   @override

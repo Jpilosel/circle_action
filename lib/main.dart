@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays(
         []); // suprime toutes la barres de navigation en haut (baterie) et en bas 8 importer service.dart
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Circle Action',
       home: HomeScreen(),
     );

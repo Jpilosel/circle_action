@@ -1,6 +1,8 @@
-class QuestionModel {
-  String question;
-  bool answer;
+import 'package:meta/meta.dart';
 
-  QuestionModel(this.question, this.answer);
+class ActionModel {
+  String description;
+  int colorID;
+
+  ActionModel({@required this.description, @required this.colorID});
 }
